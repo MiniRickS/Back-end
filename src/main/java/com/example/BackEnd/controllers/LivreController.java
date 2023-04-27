@@ -1,10 +1,8 @@
 package com.example.BackEnd.controllers;
 
-import com.example.BackEnd.Views;
 import com.example.BackEnd.models.Livre;
 import com.example.BackEnd.models.Site;
 import com.example.BackEnd.services.LivreService;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,6 @@ public class LivreController {
     @Autowired
     private LivreService livreService;
     @GetMapping
-    @JsonView(Views.Livres.class)
     public List<Livre> getLivres() {
         return livreService.getLivres();
     }

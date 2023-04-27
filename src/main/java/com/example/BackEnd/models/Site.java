@@ -1,6 +1,5 @@
 package com.example.BackEnd.models;
 
-import com.example.BackEnd.Views;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
@@ -9,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,16 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 public class Site {
     @Id
-    @JsonView(Views.Livres.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @JsonView(Views.Livres.class)
     private String nom;
 
     @Column(nullable = false)
-    @JsonView(Views.Livres.class)
     private String domaine;
 
     @ManyToMany
