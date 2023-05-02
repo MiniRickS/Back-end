@@ -27,6 +27,7 @@ public class LivreController {
 
     @Autowired
     private LivreService livreService;
+
     @GetMapping
     public List<Livre> getLivres() {
         return livreService.getLivres();
@@ -64,10 +65,8 @@ public class LivreController {
         }
 
         livre.setSites(existingSites);
-
         Livre savedLivre = livreService.ajouterLivre(livre);
 
-        // Update and save the sites with the saved Livre instance
         for (Site site : existingSites) {
             site.getLivres().add(savedLivre);
             siteRepository.save(site);
@@ -75,7 +74,6 @@ public class LivreController {
 
         return savedLivre;
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Livre> modifierLivre(@PathVariable Long id, @Valid @RequestBody Livre livreModifie) {
@@ -106,13 +104,11 @@ public class LivreController {
             }
         }
 
-        // Remove old Site-Livre associations
         for (Site site : livre.getSites()) {
             site.getLivres().remove(livre);
             siteRepository.save(site);
         }
 
-        // Set new Site-Livre associations
         livre.setSites(existingSites);
         for (Site site : existingSites) {
             site.getLivres().add(livre);
@@ -123,8 +119,6 @@ public class LivreController {
 
         return ResponseEntity.ok(livre);
     }
-
-
 
 
     @DeleteMapping("/{id}")
