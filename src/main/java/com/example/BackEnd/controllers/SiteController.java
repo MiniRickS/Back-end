@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/sites")
@@ -23,6 +24,7 @@ public class SiteController {
     @Autowired
     private LivreRepository livreRepository;
 
+
     @GetMapping
     public List<Site> getSites() {
         List<Site> sites = siteRepository.findAll();
@@ -31,6 +33,17 @@ public class SiteController {
             site.setLivres(livres);
         }
         return sites;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Site> getSiteById(@PathVariable Long id) {
+        Optional<Site> site = siteService.getSiteById(id);
+
+        if (site.isPresent()) {
+            return ResponseEntity.ok(site.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
